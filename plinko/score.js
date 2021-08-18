@@ -9,15 +9,27 @@ function onScoreUpdate(dropPosition, bounciness, size, bucketLabel) {
 function runAnalysis() {
   // Write code here to analyze stuff
   const test_set_size = 100
-  const [test_set, training_set] = split_dataset(min_max(outputs, 3), test_set_size)
-  _.range(1, 20).forEach(k => {
+  const k = 10
+
+  // const [test_set, training_set] = split_dataset(min_max(outputs, 3), test_set_size)
+  _.range(0, 3).forEach(feature => {
+    const data = _.map(outputs, row => [row[feature], _.last(row)])
+    const [test_set, training_set] = split_dataset(min_max(data, 1), test_set_size)
     const accuracy = _.chain(test_set)
-      .filter(test_point => knn(training_set, _.initial(test_point), k) === test_point[3])
+      .filter(test_point => knn(training_set, _.initial(test_point), k) === _.last(test_point))
       .size()
       .divide(test_set_size)
       .value()
-    console.log('Accuracy: ', accuracy, ' for k: ', k)
+    console.log('Accuracy: ', accuracy, ' for feature of: ', feature)
   })
+  // _.range(1, 20).forEach(k => {
+  //   const accuracy = _.chain(test_set)
+  //     .filter(test_point => knn(training_set, _.initial(test_point), k) === test_point[3])
+  //     .size()
+  //     .divide(test_set_size)
+  //     .value()
+  //   console.log('Accuracy: ', accuracy, ' for k: ', k)
+  // })
 }
 
 function knn(data, point, k) {
