@@ -39,6 +39,7 @@ class LinearRegression {
         for (let i = 0; i < this.options.iterations; i++) {
             this.gradientDescent()
             this.recordMSE()
+            this.updateLearningRate()
         }
     }
 
@@ -78,7 +79,20 @@ class LinearRegression {
             .sum()
             .div(this.features.shape[0])
             .get()
-        this.mseHistory.push(mse)
+        this.mseHistory.unshift(mse) // add to the beginning instead of the end
+    }
+
+    updateLearningRate () {
+        if (this.mseHistory.length < 2) {
+            return
+        }
+        const lastValue = this.mseHistory[0] // newer records are in the beginning
+        const secondLast = this.mseHistory[1]
+        if (lastValue > secondLast) {
+            this.options.learningRate /= 2
+        } else {
+            this.options.learningRate *= 1.05
+        }
     }
 }
 
