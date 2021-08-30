@@ -7,6 +7,7 @@ class LinearRegression {
         this.features = this.processFeatures(features)
         this.options = Object.assign({ learningRate: 0.1, iterations: 1000 }, options)
         this.weigths = tf.zeros([this.features.shape[1], 1])
+        this.mseHistory = []
     }
 
     gradientDescent() {
@@ -37,6 +38,7 @@ class LinearRegression {
     train() {
         for (let i = 0; i < this.options.iterations; i++) {
             this.gradientDescent()
+            this.recordMSE()
         }
     }
 
@@ -51,7 +53,7 @@ class LinearRegression {
 
     processFeatures(features) {
         features = tf.tensor(features)
-      
+
         if (this.mean && this.variance) {
             features = features.sub(this.mean).div(this.variance.pow(0.5)) // we have to reuse mean and variance for the further standardization (test set)
         } else {
@@ -66,6 +68,17 @@ class LinearRegression {
         this.mean = mean
         this.variance = variance
         return features.sub(mean).div((variance).pow(0.5))
+    }
+
+    recordMSE() {
+        const mse = this.features.
+            matMul(this.weigths)
+            .sub(this.labels)
+            .pow(2)
+            .sum()
+            .div(this.features.shape[0])
+            .get()
+        this.mseHistory.push(mse)
     }
 }
 
