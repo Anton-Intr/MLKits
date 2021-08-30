@@ -82,7 +82,7 @@ class LinearRegression {
         this.mseHistory.unshift(mse) // add to the beginning instead of the end
     }
 
-    updateLearningRate () {
+    updateLearningRate() {
         if (this.mseHistory.length < 2) {
             return
         }
