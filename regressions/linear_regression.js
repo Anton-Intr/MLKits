@@ -46,7 +46,9 @@ class LinearRegression {
         testLabels = tf.tensor(testLabels)
         testFeatures = tf.ones([testFeatures.shape[0], 1]).concat(testFeatures, 1)
         const predictions = testFeatures.matMul(this.weigths)
-        predictions.print()
+        const res = testLabels.sub(predictions).pow(2).sum().get()
+        const tot = testLabels.sub(testLabels.mean()).pow(2).sum().get()
+        return 1 - res / tot
     }
 }
 
