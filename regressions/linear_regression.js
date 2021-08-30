@@ -51,12 +51,13 @@ class LinearRegression {
 
     processFeatures(features) {
         features = tf.tensor(features)
-        features = tf.ones([features.shape[0], 1]).concat(features, 1)
+      
         if (this.mean && this.variance) {
             features = features.sub(this.mean).div(this.variance.pow(0.5)) // we have to reuse mean and variance for the further standardization (test set)
         } else {
             features = this.standardize(features) // running standardization for the first time
         }
+        features = tf.ones([features.shape[0], 1]).concat(features, 1)
         return features
     }
 
