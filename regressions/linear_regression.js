@@ -13,10 +13,11 @@ class LinearRegression {
     gradientDescent() {
         const currentGuesses = this.features.matMul(this.weigths)
         const differences = currentGuesses.sub(this.labels)
-        const gradient = this.features
-        .transpose()
-        .matMul(differences)
-        .div(this.features.shape[0])
+        const slopes = this.features
+            .transpose()
+            .matMul(differences)
+            .div(this.features.shape[0])
+        this.weigths = this.weigths.sub(slopes.mul(this.options.learningRate))
     }
 
     // gradientDescent() {
