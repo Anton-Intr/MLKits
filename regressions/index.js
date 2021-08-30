@@ -15,5 +15,6 @@ const regression = new LinearRegression(features, labels, {
     iterations: 100
 })
 regression.train()
-console.log('Updated M is', regression.weigths.get(1, 0))
-console.log('Updated B is', regression.weigths.get(0, 0))
+regression.test(testFeatures, testLabels)
+// console.log('Updated M is', regression.weigths.get(1, 0))
+// console.log('Updated B is', regression.weigths.get(0, 0))
