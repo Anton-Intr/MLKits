@@ -18,10 +18,10 @@ const regression = new LinearRegression(features, labels, {
 regression.train()
 const r2 = regression.test(testFeatures, testLabels)
 console.log('R2 is', r2)
-plot({
-    x: regression.mseHistory.reverse(),
-    xLabel: 'Iteration #',
-    yLabel: 'MSE'
-})
+// plot({
+//     x: regression.mseHistory.reverse(),
+//     xLabel: 'Iteration #',
+//     yLabel: 'MSE'
+// })
 // console.log('Updated M is', regression.weigths.get(1, 0))
 // console.log('Updated B is', regression.weigths.get(0, 0))
