@@ -3,7 +3,7 @@ const _ = require('lodash')
 
 class LinearRegression {
     constructor(features, labels, options) {
-        this.labels = labels
+        this.labels = tf.tensor(labels)
         this.features = this.processFeatures(features)
         this.options = Object.assign({ learningRate: 0.1, iterations: 1000 }, options)
         this.weigths = tf.zeros([this.features.shape[1], 1])

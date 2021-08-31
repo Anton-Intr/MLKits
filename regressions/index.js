@@ -13,16 +13,16 @@ let { features, labels, testFeatures, testLabels } = loadCSV('./cars.csv', {
 
 const regression = new LinearRegression(features, labels, {
     learningRate: 0.1,
-    iterations: 100,
-    batchSize: 10
+    iterations: 3,
+    batchSize: 1
 })
 regression.train()
 const r2 = regression.test(testFeatures, testLabels)
 console.log('R2 is', r2)
-// plot({
-//     x: regression.mseHistory.reverse(),
-//     xLabel: 'Iteration #',
-//     yLabel: 'MSE'
-// })
+plot({
+    x: regression.mseHistory.reverse(),
+    xLabel: 'Iteration #',
+    yLabel: 'MSE'
+})
 // console.log('Updated M is', regression.weigths.get(1, 0))
 // console.log('Updated B is', regression.weigths.get(0, 0))
