@@ -36,6 +36,7 @@ class LinearRegression {
     // }
 
     train() {
+        batchQuantity = Math.floor(this.features.shape[0] / this.options.batchSize)
         for (let i = 0; i < this.options.iterations; i++) {
             this.gradientDescent()
             this.recordMSE()
