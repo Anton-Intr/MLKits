@@ -55,18 +55,16 @@ class LogisticRegression {
     }
 
     test(testFeatures, testLabels) {
+        const predictions = this.predict(testFeatures).round()
         testLabels = tf.tensor(testLabels)
-        testFeatures = this.processFeatures(testFeatures)
-        const predictions = testFeatures.matMul(this.weigths)
-        const res = testLabels.sub(predictions).pow(2).sum().get()
-        const tot = testLabels.sub(testLabels.mean()).pow(2).sum().get()
-        return 1 - res / tot
+        const incorrect = predictions.sub(testLabels).abs().sum()
+        return (predictions.shape[0] - incorrect.get()) / predictions.shape[0]
     }
 
     processFeatures(features) {
         features = tf.tensor(features)
 
-        if (this.mean && this.variance) {   
+        if (this.mean && this.variance) {
             features = features.sub(this.mean).div(this.variance.pow(0.5)) // we have to reuse mean and variance for the further standardization (test set)
         } else {
             features = this.standardize(features) // running standardization for the first time
