@@ -11,7 +11,7 @@ class LogisticRegression {
     }
 
     gradientDescent(features, labels) {
-        const currentGuesses = features.matMul(this.weigths)
+        const currentGuesses = features.matMul(this.weigths).sigmoid()
         const differences = currentGuesses.sub(labels)
         const slopes = features
             .transpose()
@@ -51,7 +51,7 @@ class LogisticRegression {
     }
 
     predict(observations) {
-        return this.processFeatures(observations).matMul(this.weigths)
+        return this.processFeatures(observations).matMul(this.weigths).sigmoid()
     }
 
     test(testFeatures, testLabels) {
@@ -66,7 +66,7 @@ class LogisticRegression {
     processFeatures(features) {
         features = tf.tensor(features)
 
-        if (this.mean && this.variance) {
+        if (this.mean && this.variance) {   
             features = features.sub(this.mean).div(this.variance.pow(0.5)) // we have to reuse mean and variance for the further standardization (test set)
         } else {
             features = this.standardize(features) // running standardization for the first time
