@@ -7,7 +7,7 @@ class LogisticRegression {
         this.features = this.processFeatures(features)
         this.options = Object.assign({ learningRate: 0.1, iterations: 1000, decisionBoundary: 0.5 }, options)
         this.weigths = tf.zeros([this.features.shape[1], 1])
-        this.mseHistory = []
+        this.costHistory = []
     }
 
     gradientDescent(features, labels) {
@@ -45,7 +45,7 @@ class LogisticRegression {
                 const labelsSlice = this.labels.slice([startIndex, 0], [batchSize, -1])
                 this.gradientDescent(featuresSlice, labelsSlice)
             }
-            this.recordMSE()
+            this.recordCost()
             this.updateLearningRate()
         }
     }
@@ -80,23 +80,19 @@ class LogisticRegression {
         return features.sub(mean).div((variance).pow(0.5))
     }
 
-    recordMSE() {
-        const mse = this.features.
-            matMul(this.weigths)
-            .sub(this.labels)
-            .pow(2)
-            .sum()
-            .div(this.features.shape[0])
-            .get()
-        this.mseHistory.unshift(mse) // add to the beginning instead of the end
+    recordCost() {
+        const guesses = this.features.matMul(this.weigths).sigmoid()
+        const termOne = this.labels.transpose().matMul(guesses.log())
+        
+        this.costHistory.unshift(mse) // add to the beginning instead of the end
     }
 
     updateLearningRate() {
-        if (this.mseHistory.length < 2) {
+        if (this.costHistory.length < 2) {
             return
         }
-        const lastValue = this.mseHistory[0] // newer records are in the beginning
-        const secondLast = this.mseHistory[1]
+        const lastValue = this.costHistory[0] // newer records are in the beginning
+        const secondLast = this.costHistory[1]
         if (lastValue > secondLast) {
             this.options.learningRate /= 2
         } else {
