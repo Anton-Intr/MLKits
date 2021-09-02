@@ -83,8 +83,9 @@ class LogisticRegression {
     recordCost() {
         const guesses = this.features.matMul(this.weigths).sigmoid()
         const termOne = this.labels.transpose().matMul(guesses.log())
-        
-        this.costHistory.unshift(mse) // add to the beginning instead of the end
+        const termTwo = this.labels.mul(-1).add(1).transpose().matMul(guesses.mul(-1).add(1).log())
+        const cost = termOne.add(termTwo).div(this.features.shape[0]).mul(-1).get(0, 0)
+        this.costHistory.unshift(cost) // add to the beginning instead of the end
     }
 
     updateLearningRate() {
