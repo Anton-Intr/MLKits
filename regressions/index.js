@@ -1,31 +1,15 @@
-require('@tensorflow/tfjs-node')
-const tf = require('@tensorflow/tfjs')
-const loadCSV = require('./load-csv')
-const LinearRegression = require('./linear_regression')
-const plot = require('node-remote-plot')
+// just a random file to overcome 
 
-let { features, labels, testFeatures, testLabels } = loadCSV('./cars.csv', {
-    shuffle: true,
-    splitTest: 50,
-    dataColumns: ['horsepower', 'displacement', 'weight'],
-    labelColumns: ['mpg']
-})
 
-const regression = new LinearRegression(features, labels, {
-    learningRate: 0.1,
-    iterations: 3,
-    batchSize: 10
-})
-regression.train()
-const r2 = regression.test(testFeatures, testLabels)
-console.log('R2 is', r2)
-plot({
-    x: regression.mseHistory.reverse(),
-    xLabel: 'Iteration #',
-    yLabel: 'MSE'
-})
-regression.predict([
-    [120, 380, 2],
-]).print()
-// console.log('Updated M is', regression.weigths.get(1, 0))
-// console.log('Updated B is', regression.weigths.get(0, 0))
+// internal/modules/cjs/loader.js:892
+//   throw err;
+//   ^
+
+// Error: Cannot find module 'c:\Users\Anton\MLCourse\MLKits\regressions\index.js'
+//     at Function.Module._resolveFilename (internal/modules/cjs/loader.js:889:15)
+//     at Function.Module._load (internal/modules/cjs/loader.js:745:27)
+//     at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:76:12)
+//     at internal/main/run_main_module.js:17:47 {
+//   code: 'MODULE_NOT_FOUND',
+//   requireStack: []
+// }

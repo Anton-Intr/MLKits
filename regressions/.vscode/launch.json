@@ -7,11 +7,21 @@
         {
             "type": "pwa-node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Logistic Regression",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\index.js",
+            "program": "${workspaceFolder}\\logistic-regression\\index.js",
+            "outputCapture": "std"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Linear regression",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\linear-regression\\index.js",
             "outputCapture": "std"
         }
     ]
