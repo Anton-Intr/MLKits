@@ -31,11 +31,10 @@ const regression = new LogisticRegression(features, _.flatMap(labels), {
     batchSize: 10,
     decisionBoundary: 0.5
 })
-regression.weigths.print()
 
 regression.train()
 regression.predict([
-    [215, 440, 2.16]
+    [150, 200, 2.223]
 ]).print()
 // plot({
 //     x: regression.costHistory.reverse()
