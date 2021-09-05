@@ -51,13 +51,13 @@ class LogisticRegression {
     }
 
     predict(observations) {
-        return this.processFeatures(observations).matMul(this.weigths).softmax().greater(this.options.decisionBoundary).cast('float32')
+        return this.processFeatures(observations).matMul(this.weigths).softmax().argMax(1)
     }
 
     test(testFeatures, testLabels) {
         const predictions = this.predict(testFeatures)
-        testLabels = tf.tensor(testLabels)
-        const incorrect = predictions.sub(testLabels).abs().sum()
+        testLabels = tf.tensor(testLabels).argMax(1)
+        const incorrect = predictions.notEqual(testLabels).sum()
         return (predictions.shape[0] - incorrect.get()) / predictions.shape[0]
     }
 
