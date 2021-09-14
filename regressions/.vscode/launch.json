@@ -36,7 +36,8 @@
             "request": "launch",
             "name": "Image recognition",
             "skipFiles": [
-                "<node_internals>/**"
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**"
             ],
             "program": "${workspaceFolder}/image-recognition/index.js",
             "outputCapture": "std"
