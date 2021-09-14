@@ -30,6 +30,16 @@
             ],
             "program": "${workspaceFolder}\\multinomial-logistic-regression\\index.js",
             "outputCapture": "std"
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Image recognition",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/image-recognition/index.js",
+            "outputCapture": "std"
         }
     ]
 }
