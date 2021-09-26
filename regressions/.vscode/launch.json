@@ -42,6 +42,18 @@
             "program": "${workspaceFolder}/image-recognition/index.js",
             "outputCapture": "std",
             "runtimeArgs": [ "--max-old-space-size=4096"]
+        },
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Memory test",
+            "skipFiles": [
+                "<node_internals>/**",
+                "${workspaceFolder}/node_modules/**"
+            ],
+            "program": "${workspaceFolder}/multinomial-logistic-regression/memory.js",
+            "outputCapture": "std",
+            "runtimeArgs": [ "--max-old-space-size=4096"]
         }
     ]
 }
