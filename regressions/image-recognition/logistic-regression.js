@@ -45,7 +45,6 @@ class LogisticRegression {
                 const labelsSlice = this.labels.slice([startIndex, 0], [batchSize, -1])
                 this.gradientDescent(featuresSlice, labelsSlice)
             }
-            debugger
             this.recordCost()
             this.updateLearningRate()
         }
