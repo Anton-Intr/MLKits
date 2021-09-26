@@ -89,8 +89,8 @@ class LogisticRegression {
     recordCost() {
         const cost = tf.tidy(() => {
             const guesses = this.features.matMul(this.weigths).softmax()
-            const termOne = this.labels.transpose().matMul(guesses.log())
-            const termTwo = this.labels.mul(-1).add(1).transpose().matMul(guesses.mul(-1).add(1).log())
+            const termOne = this.labels.transpose().matMul(guesses.add(1e-7).log())
+            const termTwo = this.labels.mul(-1).add(1).add(1e-7).transpose().matMul(guesses.mul(-1).add(1).log()) // 1e-7 to avoid 0
             return termOne.add(termTwo).div(this.features.shape[0]).mul(-1).get(0, 0)
         })
         this.costHistory.unshift(cost) // add to the beginning instead of the end
